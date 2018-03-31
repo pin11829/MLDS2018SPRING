@@ -67,9 +67,6 @@ if __name__ == '__main__':
     loss_func = nn.CrossEntropyLoss()
 
     for epoch in range(EPOCH):
-        running_loss = 0.0
-        running_correct = 0
-        grad_batch = 0
         for step, (x, y) in enumerate(train_loader):
             b_x = Variable(x.view(-1, 28*28))
             b_y = Variable(y, requires_grad = False)
@@ -78,18 +75,14 @@ if __name__ == '__main__':
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            running_loss += loss.data[0]
             if (step+1) % 100 == 0:
                 print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f'
                        %(epoch+1, EPOCH, step+1, len(train_data)//BATCH_SIZE, loss.data[0]))
-            grad_batch += Gradientrecord(net)
-        grad_batch = grad_batch / (len(train_data)//BATCH_SIZE)
-        running_loss = running_loss / len(train_data)
-        Record.append(grad_batch)
-        Loss.append(running_loss)
+            Record.append(Gradientrecord(net))
+            Loss.append(loss.data[0])
 
-    np.save("Record2.npy", Record)
-    np.save("Loss2.npy", Loss)
+    np.save("Record.npy", Record)
+    np.save("Loss.npy", Loss)
 
     print('Loading the Loss...')
     Loss = np.load("Loss.npy")
@@ -97,14 +90,21 @@ if __name__ == '__main__':
     Gradient = np.load("Record.npy")
 
     print('Drawing the Gradient curve...')
-    plt.plot(Gradient, 'r', label = 'Gradient')
-    plt.legend(loc = 'lower right')
-    plt.title('Q1-2-3-1')
+    plt.plot(Gradient, 'r', label = 'Gradient norm')
+    plt.legend(loc = 'upper right')
+    plt.title('Q1-2-2-1')
+    plt.yscale('log')
+    plt.xlabel('iterations')
+    plt.ylabel('grad')
+    plt.savefig('Q1-2-2-1.png')
     plt.show()
 
     print('Drawing the loss...')
-    plt.plot(Loss, 'r', label = 'Loss')
+    plt.plot(Loss, 'b', label = 'Loss')
     plt.legend(loc = 'upper right')
-    plt.title('Q1-2-3-2')
+    plt.title('Q1-2-2-2')
     plt.yscale('log')
+    plt.xlabel('iterations')
+    plt.ylabel('loss')
+    plt.savefig('Q1-2-2-2.png')
     plt.show()
