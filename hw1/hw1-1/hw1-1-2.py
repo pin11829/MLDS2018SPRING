@@ -64,7 +64,6 @@ def Bulid_Deepmodel(x_train, y_train, epoch):
     np.save("Dhistory.npy", history.history['loss'])
     np.save("Dhistory2.npy", history.history['acc'])
     return model, history
-#1,554,026
 
 def Bulid_VeryDeepmodel(x_train, y_train, epoch):
     model = Sequential()
@@ -107,16 +106,12 @@ def Bulid_VeryDeepmodel(x_train, y_train, epoch):
     np.save("Vhistory.npy", history.history['loss'])
     np.save("Vhistory2.npy", history.history['acc'])
     return model, history
-# 1,553,802
-
 
 if __name__ == '__main__':
     epoch = 100
 
-    #CIFAR10
-    print('Loading cifar10...')
+    print('Loading mnist...')
 
-    #(x_train, y_train), (x_test, y_test) = cifar10.load_data()
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
     x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)
     x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)
@@ -126,12 +121,12 @@ if __name__ == '__main__':
     print(x_train.shape[0], 'train samples')
     print(y_train.shape, 'y_train samples')
 
-    '''
+
     print('Training the model...')
     Shallowmodel, Shistory = Bulid_Shallowmodel(x_train, y_train, epoch)
     Deepmodel, Dhistory = Bulid_Deepmodel(x_train, y_train, epoch)
     VeryDeepmodel, Vhistory = Bulid_VeryDeepmodel(x_train, y_train, epoch)
-    '''
+
 
 
     print('Loading the model...')
@@ -144,16 +139,6 @@ if __name__ == '__main__':
     Shistoryacc = np.load("Shistory2.npy")
     Dhistoryacc = np.load("Dhistory2.npy")
     Vhistoryacc = np.load("Vhistory2.npy")
-
-
-    '''
-    print('Predicting the data...')
-    y_predS = Shallowmodel.predict(x_train)
-    y_predD = Deepmodel.predict(x_train)
-    y_predV = VeryDeepmodel.predict(x_train)
-    '''
-
-
 
     print('Drawing the loss...')
     plt.plot(Shistoryloss, 'r', label = 'ShallowModel')

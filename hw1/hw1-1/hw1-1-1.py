@@ -76,12 +76,10 @@ if __name__ == '__main__':
     y = np.sin(10 * np.pi * x) / (10 * np.pi * x)
     plt.plot(x, y, 'b', label='Ground-truth')
 
-
     print('Training the model...')
     Shallowmodel, Shistory = Bulid_Shallowmodel(x, y, epoch)
     Deepmodel, Dhistory = Bulid_Deepmodel(x, y, epoch)
     VeryDeepmodel, Vhistory = Bulid_VeryDeepmodel(x, y, epoch)
-
 
     print('Loading the model...')
     Shallowmodel = load_model('model_Shallowmodel.h5')
