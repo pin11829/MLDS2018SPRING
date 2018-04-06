@@ -53,7 +53,7 @@ if __name__ == '__main__':
         root='./mnist/',
         train=True,
         transform=torchvision.transforms.ToTensor(),
-        download=False
+        download=DOWNLOAD_MNIST
     )
 
     test_data = torchvision.datasets.MNIST(root='./mnist/', train=False)
