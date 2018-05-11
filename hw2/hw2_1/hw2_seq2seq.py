@@ -83,8 +83,8 @@ def Bulid_Wordvocab(total_labels, word_count_threshold):
     return wordtoindx, indxtoword, bias_init_vec
 
 def Build_model(n_words, bias_init_vec=None):
-    video_feat = tf.placeholder(tf.float32, [batch_size,  video_lstm_step,  dim_image])
-    caption = tf.placeholder(tf.int32, [batch_size,  caption_lstm_step + 2 ])
+    video_feat = tf.placeholder(tf.float32, [batch_size, video_lstm_step, dim_image])
+    caption = tf.placeholder(tf.int32, [batch_size, caption_lstm_step+2])
 
     caption_mask = tf.placeholder(tf.float32, [batch_size, caption_lstm_step+1])
 
@@ -98,7 +98,7 @@ def Build_model(n_words, bias_init_vec=None):
         decoder_emb_inp = tf.nn.embedding_lookup(embedding_decoder, caption[:, :-1])
 
     decoder_cell = tf.nn.rnn_cell.BasicLSTMCell(dim_hidden)
-    decoder_cell = tf.contrib.seq2seq.AttentionWrapper(decoder_cell, attention_mechanism, attention_layer_size= dim_hidden)
+    decoder_cell = tf.contrib.seq2seq.AttentionWrapper(decoder_cell, attention_mechanism, attention_layer_size=dim_hidden)
 
     decoder_seq_length = [caption_lstm_step+1] * batch_size
 
