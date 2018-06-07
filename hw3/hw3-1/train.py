@@ -204,7 +204,7 @@ class GAN():
         # fig.savefig("images/gan_%d.png" % epoch)
         # plt.close()
         
-        self.generator.save('model/gan_model.h5')
+        self.generator.save('gan_model.h5')
 
 
 if __name__ == '__main__':
