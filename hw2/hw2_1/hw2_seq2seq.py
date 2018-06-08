@@ -240,7 +240,7 @@ def train(model_path):
 
 def test(model_path, testing_path, outputfile):
     test_videos = []
-    with open(os.path.join(testing_path, 'testing_id.txt')) as f:
+    with open(os.path.join(testing_path, 'id.txt')) as f:
         for line in f:
             test_videos.append(line.strip())
     indxtoword = pd.Series(np.load('./Utils/indxtoword.npy').tolist())
@@ -255,7 +255,7 @@ def test(model_path, testing_path, outputfile):
     test_output_txt_fd = open(outputfile, 'w')
     for idx, video_feat_path in enumerate(test_videos):
 
-        video_feat = np.load(os.path.join(testing_path, video_feat_path + '.npy'))[None,...]
+        video_feat = np.load(os.path.join(testing_path, 'feat', video_feat_path + '.npy'))[None,...]
 
         feed_dict={
             video: video_feat
